@@ -1,0 +1,350 @@
+<Button>
+    font_size: 15
+
+<Label>
+    markup: True
+    bold: True
+
+<TextInput>
+    multiline: False
+
+
+<LoginPage>
+    inputStringUsername: username
+    inputStringPassword: password
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            height: "80dp"
+            Label:
+                text: "Group 63"
+                underline: True
+                bold: True
+                font_size: "80dp"
+
+
+        BoxLayout:
+            height: "60dp"
+            size_hint_y: None
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: "Username:"
+                size_hint_x: 25
+            TextInput:
+                id: username
+                size_hint_x: 25
+            Label:
+                text: ""
+                size_hint_x: 50
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: "Password:"
+                size_hint_x: 25
+            TextInput:
+                id: password
+                size_hint_x: 25
+                password: True
+            Label:
+                text: ""
+                size_hint_x: 50
+
+
+        BoxLayout:
+            height: "15dp"
+            size_hint_y: None
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: ""
+                size_hint_x: 25
+            Button:
+                text: "Login"
+                on_press: root.output_username()
+                on_press: root.output_password()
+                on_press: root.manager.current = 'menu'
+                size_hint_x: 25
+            Label:
+                text: ""
+                size_hint_x: 50
+
+
+        BoxLayout:
+            height: "300dp"
+            size_hint_y: None
+
+
+<MainMenuPage>
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            height: "40dp"
+            Label:
+                text: "Main Menu"
+                underline: True
+                bold: True
+                font_size: "40dp"
+
+        BoxLayout:
+            height: "15dp"
+            size_hint_y: None
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: ""
+                size_hint_x: 32.5
+            Button:
+                text: "Add a Transaction"
+                size_hint_x: 25
+                on_press: root.manager.current = 'add'
+            Label:
+                text: ""
+                size_hint_x: 32.5
+
+
+        BoxLayout:
+            height: "15dp"
+            size_hint_y: None
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: ""
+                size_hint_x: 32.5
+            Button:
+                text: "View Blockchain"
+                size_hint_x: 25
+                on_press: root.manager.current = 'view'
+            Label:
+                text: ""
+                size_hint_x: 32.5
+
+
+        BoxLayout:
+            height: "450dp"
+            size_hint_y: None
+
+
+
+
+
+
+<AddFirearmPage>
+    inputStringFirstName: firstName
+    inputStringSurName: surName
+    inputStringSerialNumber: serialNumber
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            height: "40dp"
+            Label:
+                text: "Transaction Details"
+                underline: True
+                bold: True
+                font_size: "40dp"
+
+        BoxLayout:
+            height: "15dp"
+            size_hint_y: None
+
+
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: "First Name:"
+                size_hint_x: 25
+                markup: True
+                bold: True
+            TextInput:
+                id: firstName
+                size_hint_x: 25
+            Label:
+                text: ""
+                size_hint_x: 50
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+
+            Label:
+                text: "Surname:"
+                size_hint_x: 25
+            TextInput:
+                id: surName
+                size_hint_x: 25
+            Label:
+                text: ""
+                size_hint_x: 50
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+
+            Label:
+                text: "Serial Number:"
+                size_hint_x: 25
+            TextInput:
+                id: serialNumber
+                size_hint_x: 25
+            Label:
+                text: ""
+                size_hint_x: 50
+
+
+        BoxLayout:
+            height: "15dp"
+            size_hint_y: None
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: ""
+                size_hint_x: 25
+            Button:
+                size_hint_x: 25
+                text: "Add Transaction"
+                on_press: root.output_form_details()
+            Label:
+                text: ""
+                size_hint_x: 50
+
+
+        BoxLayout:
+            height: "300dp"
+            size_hint_y: None
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: ""
+                size_hint_x: 25
+            Button:
+                size_hint_x: 50
+                text: "Back to Menu"
+                on_press: root.manager.current = 'menu'
+            Label:
+                text: ""
+                size_hint_x: 25
+
+
+        BoxLayout:
+            Label:
+                text:""
+
+
+<ViewBlockchainPage>
+    outputStringDetails: displayString
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            height: "80dp"
+            Label:
+                text: "Output"
+                underline: True
+                bold: True
+                font_size: "80dp"
+
+
+        BoxLayout:
+            height: "80dp"
+            Label:
+                id: displayString
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: ""
+                size_hint_x: 25
+            Button:
+                size_hint_x: 50
+                text: "Scratch and Sniff"
+                on_press: root.output_to_label()
+            Label:
+                text: ""
+                size_hint_x: 25
+
+
+        BoxLayout:
+            height: "30dp"
+            size_hint_y: None
+            Label:
+                text: ""
+                size_hint_x: 25
+            Button:
+                size_hint_x: 50
+                text: "Back to Menu"
+                on_press: root.manager.current = 'menu'
+            Label:
+                text: ""
+                size_hint_x: 25
+
+        BoxLayout:
+            Label:
+                text:""
+
+
+
+
+<Manager>:
+    id: screen_manager
+
+    screen_one: loginPage
+    screen_two: menuPage
+    screen_three: addFirearmPage
+    screen_four: viewBlockchainPage
+
+    LoginPage:
+        id: loginPage
+        name: 'login'
+        manager: screen_manager
+
+
+    MainMenuPage:
+        id: menuPage
+        name: 'menu'
+        manager: screen_manager
+
+
+    AddFirearmPage:
+        id: addFirearmPage
+        name: 'add'
+        manager: screen_manager
+
+
+    ViewBlockchainPage:
+        id: viewBlockchainPage
+        name: 'view'
+        manager: screen_manager
