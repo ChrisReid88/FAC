@@ -43,7 +43,7 @@ class MainMenuPage(Screen):
 
 
 class AddFirearmPage(Screen):
-    inputStringLicenceNumber: ObjectProperty()  # THESE VARIABLE NAMES HAVE CHANGED
+    inputStringLicenceNumber: ObjectProperty()
     inputStringTransactionNumber: ObjectProperty()
     inputStringFirearmModel: ObjectProperty()
     inputStringSerialNumber: ObjectProperty()
@@ -60,7 +60,22 @@ class AddFirearmPage(Screen):
 
     def add_to_the_blockchain(self):  # ADD CODE TO ADD INPUT INFO TO THE BLOCK IN THIS FUNCTION
         if self.verified is True:
+            # VALUES NEED VALIDATED BEFORE BEING ADDED TO THE BLOCKCHAIN
+            # CALL THIS FUNCTION [ Factory.BadDetailsPopup().open() ] IF VALIDATION FAILS
+
+            # FUNCTION TO ACTUALLY ADD VALUES TO THE BLOCKCHAIN NEEDS TO GO HERE
             print("Added to the block")
+
+            # RESETS THE BOOLEAN VALUE SO MULTIPLES CANNOT BE ADDED
+            self.verified = False
+
+            # CLEARS THE TEXTBOXES AFTER DETAILS HAVE BEEN ADDED TO THE BLOCKCHAIN
+            self.inputStringLicenceNumber.text = ""
+            self.inputStringTransactionNumber.text = ""
+            self.inputStringFirearmModel.text = ""
+            self.inputStringSerialNumber.text = ""
+            self.inputStringStoreID.text = ""
+            self.inputStringEmployeeID.text = ""
         else:
             Factory.NotVerifiedPopup().open()
 
@@ -90,7 +105,7 @@ class ViewBlockchainPage(Screen):
         self.outputStringBlockID.text = self.test_blockID
         self.outputStringLicenceNumber.text = self.test_licenceNumber
         self.outputStringTransactionNumber.text = self.test_transactionNumber
-        self.outputStringEmployeeID.text = self.get_chain()  # THIS IS FROM YOUR CODE AND CAUSES A CRASH
+        self.outputStringEmployeeID.text = self.get_chain()
 
 
 class Manager(ScreenManager):
