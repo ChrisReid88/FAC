@@ -81,11 +81,16 @@ class ViewBlockchainPage(Screen):
     test_licenceNumber = "00000001"  # TEST VALUES
     test_transactionNumber = "748575"  # TEST VALUES
 
+    def get_chain(self):
+        req = UrlRequest("http://localhost:5000/chain")
+        req.wait(delay=0.05)
+        return str(req.result["length"])
+
     def output_to_label(self):
         self.outputStringBlockID.text = self.test_blockID
         self.outputStringLicenceNumber.text = self.test_licenceNumber
         self.outputStringTransactionNumber.text = self.test_transactionNumber
-        # self.outputStringEmployeeID.text = self.get_chain()  # THIS IS FROM YOUR CODE AND CAUSES A CRASH
+        self.outputStringEmployeeID.text = self.get_chain()  # THIS IS FROM YOUR CODE AND CAUSES A CRASH
 
 
 class Manager(ScreenManager):
