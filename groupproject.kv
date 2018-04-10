@@ -1,12 +1,91 @@
+#:import Factory kivy.factory.Factory
+
 <Button>
-    font_size: 15
+    font_size: 20
+    background_normal: ''
+    background_color: 1, 0.019, 0.823, 1        # PINK
 
 <Label>
     markup: True
     bold: True
+    font_size: 20
+    color: 0.043, 1, 0.019,  1                  # GREEN
 
 <TextInput>
     multiline: False
+    background_color: 1, 0.470, 0.019, 1        # ORANGE
+
+
+<VerificationPopup@Popup>:
+    auto_dismiss: True
+    size_hint: 0.4, 0.25
+    title: "Customer Verification"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+
+            Label:
+                text: "Username"
+
+            TextInput:
+                id: username
+                write_tab: False
+
+        BoxLayout:
+
+            Label:
+                text: "Password"
+
+            TextInput:
+                id: password
+                write_tab: False
+                password: True
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Button:
+                text: "Accept"
+                on_press:
+                    app.root.screen_three.output_form_details(username.text, password.text)
+                    root.dismiss()
+
+
+
+
+<BadDetailsPopup@Popup>:
+    auto_dismiss: True
+    size_hint: 0.45, 0.3
+    title: "Unsuccessful Attempt"
+
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "You have entered invalid details.\nPlease try again."
+            size_hint_y: 80
+        Button:
+            text: "OK"
+            size_hint_y: 30
+            on_press: root.dismiss()
+
+
+<NotVerifiedPopup@Popup>:
+    auto_dismiss: True
+    size_hint: 0.55, 0.3
+    title: "Customer Verification Needed"
+
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "The customer has not verified this transaction.\nPlease try again."
+            size_hint_y: 80
+        Button:
+            text: "OK"
+            size_hint_y: 30
+            on_press: root.dismiss()
+
 
 
 <LoginPage>
@@ -14,133 +93,207 @@
     inputStringPassword: password
 
     BoxLayout:
-        orientation: "vertical"
+        orientation: "horizontal"
 
         BoxLayout:
-            height: "80dp"
-            Label:
-                text: "Group 63"
-                underline: True
-                bold: True
-                font_size: "80dp"
+            size_hint_x: 33
+
+        BoxLayout:
+            size_hint_x: 34
+            orientation: "vertical"
+
+            BoxLayout:
+                orientation: "vertical"
+
+                BoxLayout:
+                    size_hint_y: 25
+                    Label:
+                        text: "Group 63"
+                        underline: True
+                        bold: True
+                        font_size: "60dp"
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: 20
+
+                    BoxLayout:
+                        size_hint_y: 30
+                        Label:
+                            text: "Username:   "
+                            size_hint_x: 35
+                        TextInput:
+                            id: username
+                            size_hint_x: 60
+                        Label:
+                            size_hint_x: 5
+
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 30
+                        Label:
+                            text: "Password:   "
+                            size_hint_x: 35
+                        TextInput:
+                            id: password
+                            size_hint_x: 60
+                            password: True
+                        Label:
+                            size_hint_x: 5
+
+                    BoxLayout:
+                        size_hint_y: 10
+
+                    BoxLayout:
+                        size_hint_y: 30
+                        Label:
+                            size_hint_x: 57
+                        Button:
+                            text: "Login"
+                            on_press:
+                                root.output_username()
+                                root.output_password()
+                                root.username_and_password_check(username.text, password.text)
+
+                            # on_press: root.manager.current = 'menu'
+                            size_hint_x: 42
+                        Label:
+                            size_hint_x: 5
+
+                BoxLayout:
+                    size_hint_y: 60
 
 
         BoxLayout:
-            height: "60dp"
-            size_hint_y: None
-
+            size_hint_x: 15
 
         BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: "Username:"
-                size_hint_x: 25
-            TextInput:
-                id: username
-                size_hint_x: 25
-            Label:
-                text: ""
-                size_hint_x: 50
+            size_hint_x: 18
+            orientation: "vertical"
 
+            BoxLayout:
+                size_hint_y: 93.5
 
-        BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: "Password:"
-                size_hint_x: 25
-            TextInput:
-                id: password
-                size_hint_x: 25
-                password: True
-            Label:
-                text: ""
-                size_hint_x: 50
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
 
+                Button:
+                    size_hint_x: 80
+                    text: "Exit App"
+                    on_press: app.stop()
 
-        BoxLayout:
-            height: "15dp"
-            size_hint_y: None
+                Label:
+                    size_hint_x: 10
 
+            BoxLayout:
+                size_hint_y: 2
 
-        BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: ""
-                size_hint_x: 25
-            Button:
-                text: "Login"
-                on_press: root.output_username()
-                on_press: root.output_password()
-                on_press: root.manager.current = 'menu'
-                size_hint_x: 25
-            Label:
-                text: ""
-                size_hint_x: 50
-
-
-        BoxLayout:
-            height: "300dp"
-            size_hint_y: None
 
 
 <MainMenuPage>
     BoxLayout:
-        orientation: "vertical"
+        orientation: "horizontal"
 
         BoxLayout:
-            height: "40dp"
-            Label:
-                text: "Main Menu"
-                underline: True
-                bold: True
-                font_size: "40dp"
-
-        BoxLayout:
-            height: "15dp"
-            size_hint_y: None
+            size_hint_x: 33
 
 
         BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: ""
-                size_hint_x: 32.5
-            Button:
-                text: "Add a Transaction"
-                size_hint_x: 25
-                on_press: root.manager.current = 'add'
-            Label:
-                text: ""
-                size_hint_x: 32.5
+            size_hint_x: 34
+            orientation: "vertical"
+
+            BoxLayout:
+                size_hint_y: 25
+                Label:
+                    text: "Main Menu"
+                    underline: True
+                    bold: True
+                    font_size: "60dp"
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: 15
+
+                BoxLayout:
+                    size_hint_y: 45
+                    Label:
+                        size_hint_x: 17
+                    Button:
+                        text: "Add a Transaction"
+                        size_hint_x: 66
+                        on_press: root.manager.current = 'add'
+                    Label:
+                        size_hint_x: 17
+
+                BoxLayout:
+                    size_hint_y: 10
+
+                BoxLayout:
+                    size_hint_y: 45
+                    Label:
+                        size_hint_x: 17
+                    Button:
+                        text: "View the Blockchain"
+                        size_hint_x: 66
+                        on_press: root.manager.current = 'view'
+                    Label:
+                        size_hint_x: 17
+
+
+            BoxLayout:
+                size_hint_y: 65
+
+        BoxLayout:
+            size_hint_x: 15
 
 
         BoxLayout:
-            height: "15dp"
-            size_hint_y: None
+            size_hint_x: 18
+            orientation: "vertical"
+
+            BoxLayout:
+                size_hint_y: 88
 
 
-        BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: ""
-                size_hint_x: 32.5
-            Button:
-                text: "View Blockchain"
-                size_hint_x: 25
-                on_press: root.manager.current = 'view'
-            Label:
-                text: ""
-                size_hint_x: 32.5
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
+
+                Button:
+                    size_hint_x: 80
+                    text: "Log Out"
+                    on_press: root.manager.current = 'login'
+
+                Label:
+                    size_hint_x: 10
 
 
-        BoxLayout:
-            height: "450dp"
-            size_hint_y: None
+            BoxLayout:
+                size_hint_y: 1
+
+
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
+
+                Button:
+                    size_hint_x: 80
+                    text: "Exit App"
+                    on_press: app.stop()
+
+                Label:
+                    size_hint_x: 10
+
+            BoxLayout:
+                size_hint_y: 2
+
 
 
 
@@ -148,172 +301,454 @@
 
 
 <AddFirearmPage>
-    inputStringFirstName: firstName
-    inputStringSurName: surName
+    inputStringLicenceNumber: licenceNo
+    inputStringTransactionNumber: transactionNo
+    inputStringFirearmModel: firearmModel
     inputStringSerialNumber: serialNumber
+    inputStringStoreID: storeID
+    inputStringEmployeeID: employeeID
+
 
     BoxLayout:
-        orientation: "vertical"
+        orientation: "horizontal"
 
         BoxLayout:
-            height: "40dp"
-            Label:
-                text: "Transaction Details"
-                underline: True
-                bold: True
-                font_size: "40dp"
-
-        BoxLayout:
-            height: "15dp"
-            size_hint_y: None
-
-
+            size_hint_x: 18
 
 
         BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: "First Name:"
-                size_hint_x: 25
-                markup: True
-                bold: True
-            TextInput:
-                id: firstName
-                size_hint_x: 25
-            Label:
-                text: ""
-                size_hint_x: 50
+            orientation: "vertical"
+            size_hint_x: 64
+
+            BoxLayout:
+                size_hint_y: 20
+                Label:
+                    text: "Transaction Details"
+                    underline: True
+                    bold: True
+                    font_size: "60dp"
+
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 40
+
+                BoxLayout:
+                    size_hint_x: 5
+
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_x: 90
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Licence No:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: licenceNo
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Transaction No:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: transactionNo
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Serial Number:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: serialNumber
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Firearm Model:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: firearmModel
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Store ID:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: storeID
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Employee ID:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: employeeID
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                BoxLayout:
+                    size_hint_x: 5
+
+
+
+
+            BoxLayout:
+                size_hint_y: 40
+                orientation: "vertical"
+
+                BoxLayout:
+                    size_hint_y: 5
+
+
+                BoxLayout:
+                    size_hint_y: 15
+                    Label:
+                        size_hint_x: 50
+
+                    Button:
+                        size_hint_x: 45
+                        text: "Customer Verification"
+                        on_press: Factory.VerificationPopup().open()
+
+                    Label:
+                        size_hint_x: 5
+
+                BoxLayout:
+                    size_hint_y: 2.5
+
+
+                BoxLayout:
+                    size_hint_y: 15
+                    Label:
+                        size_hint_x: 50
+
+                    Button:
+                        size_hint_x: 45
+                        text: "Add to the blockchain"
+                        on_press: root.add_to_the_blockchain()
+
+                    Label:
+                        size_hint_x: 5
+
+                BoxLayout:
+                    size_hint_y: 59.5
+
+
 
 
         BoxLayout:
-            height: "30dp"
-            size_hint_y: None
+            size_hint_x: 18
+            orientation: "vertical"
 
-            Label:
-                text: "Surname:"
-                size_hint_x: 25
-            TextInput:
-                id: surName
-                size_hint_x: 25
-            Label:
-                text: ""
-                size_hint_x: 50
+            BoxLayout:
+                size_hint_y: 82.5
 
 
-        BoxLayout:
-            height: "30dp"
-            size_hint_y: None
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
 
-            Label:
-                text: "Serial Number:"
-                size_hint_x: 25
-            TextInput:
-                id: serialNumber
-                size_hint_x: 25
-            Label:
-                text: ""
-                size_hint_x: 50
+                Button:
+                    size_hint_x: 80
+                    text: "Back"
+                    on_press: root.manager.current = 'menu'
 
-
-        BoxLayout:
-            height: "15dp"
-            size_hint_y: None
+                Label:
+                    size_hint_x: 10
 
 
-        BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: ""
-                size_hint_x: 25
-            Button:
-                size_hint_x: 25
-                text: "Add Transaction"
-                on_press: root.output_form_details()
-            Label:
-                text: ""
-                size_hint_x: 50
+            BoxLayout:
+                size_hint_y: 1
 
 
-        BoxLayout:
-            height: "300dp"
-            size_hint_y: None
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
+
+                Button:
+                    size_hint_x: 80
+                    text: "Log Out"
+                    on_press: root.manager.current = 'login'
+
+                Label:
+                    size_hint_x: 10
 
 
-        BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: ""
-                size_hint_x: 25
-            Button:
-                size_hint_x: 50
-                text: "Back to Menu"
-                on_press: root.manager.current = 'menu'
-            Label:
-                text: ""
-                size_hint_x: 25
+            BoxLayout:
+                size_hint_y: 1
 
 
-        BoxLayout:
-            Label:
-                text:""
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
+
+                Button:
+                    size_hint_x: 80
+                    text: "Exit App"
+                    on_press: app.stop()
+
+                Label:
+                    size_hint_x: 10
+
+            BoxLayout:
+                size_hint_y: 2
+
 
 
 <ViewBlockchainPage>
-    outputStringDetails: displayString
+    outputStringBlockID: blockID
+    outputStringLicenceNumber: licenceNo
+    outputStringTransactionNumber: transactionNo
+    outputStringFirearmModel: firearmModel
+    outputStringSerialNumber: serialNumber
+    outputStringStoreID: storeID
+    outputStringEmployeeID: employeeID
+
 
     BoxLayout:
-        orientation: "vertical"
+        orientation: "horizontal"
 
         BoxLayout:
-            height: "80dp"
-            Label:
-                text: "Output"
-                underline: True
-                bold: True
-                font_size: "80dp"
+            size_hint_x: 18
 
 
         BoxLayout:
-            height: "80dp"
-            Label:
-                id: displayString
+            orientation: "vertical"
+            size_hint_x: 64
+
+            BoxLayout:
+                size_hint_y: 20
+                Label:
+                    text: "Transaction Details"
+                    underline: True
+                    bold: True
+                    font_size: "60dp"
+
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 40
+
+                BoxLayout:
+                    size_hint_x: 5
+
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_x: 90
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Block ID:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: blockID
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Licence No:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: licenceNo
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Transaction No:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: transactionNo
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Serial Number:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: serialNumber
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Firearm Model:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: firearmModel
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Store ID:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: storeID
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Employee ID:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: employeeID
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                BoxLayout:
+                    size_hint_x: 5
+
+
+
+
+            BoxLayout:
+                size_hint_y: 40
+                orientation: "vertical"
+
+                BoxLayout:
+                    size_hint_y: 5
+
+                BoxLayout:
+                    size_hint_y: 15
+                    Label:
+                        size_hint_x: 50
+
+                    Button:
+                        size_hint_x: 45
+                        text: "Output"
+                        on_press: root.output_to_label()
+
+                    Label:
+                        size_hint_x: 5
+
+                BoxLayout:
+                    size_hint_y: 80
+
+
 
 
         BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: ""
-                size_hint_x: 25
-            Button:
-                size_hint_x: 50
-                text: "Scratch and Sniff"
-                on_press: root.output_to_label()
-            Label:
-                text: ""
-                size_hint_x: 25
+            size_hint_x: 18
+            orientation: "vertical"
+
+            BoxLayout:
+                size_hint_y: 82.5
 
 
-        BoxLayout:
-            height: "30dp"
-            size_hint_y: None
-            Label:
-                text: ""
-                size_hint_x: 25
-            Button:
-                size_hint_x: 50
-                text: "Back to Menu"
-                on_press: root.manager.current = 'menu'
-            Label:
-                text: ""
-                size_hint_x: 25
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
 
-        BoxLayout:
-            Label:
-                text:""
+                Button:
+                    size_hint_x: 80
+                    text: "Back"
+                    on_press: root.manager.current = 'menu'
+
+                Label:
+                    size_hint_x: 10
+
+
+            BoxLayout:
+                size_hint_y: 1
+
+
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
+
+                Button:
+                    size_hint_x: 80
+                    text: "Log Out"
+                    on_press: root.manager.current = 'login'
+
+                Label:
+                    size_hint_x: 10
+
+
+            BoxLayout:
+                size_hint_y: 1
+
+
+            BoxLayout:
+                size_hint_y: 4.5
+                Label:
+                    size_hint_x: 10
+
+                Button:
+                    size_hint_x: 80
+                    text: "Exit App"
+                    on_press: app.stop()
+
+                Label:
+                    size_hint_x: 10
+
+            BoxLayout:
+                size_hint_y: 2
+
 
 
 
