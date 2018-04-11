@@ -20,13 +20,13 @@ class LoginPage(Screen):
     inputStringUsername = ObjectProperty()
     inputStringPassword = ObjectProperty()
 
-    def output_username(self):  # Handle the username from login screen
+    def output_username(self):  # ACCESS TO THE USERNAME FROM LOGIN SCREEN
         print(self.inputStringUsername.text)
 
-    def output_password(self):  # Handle the password from login screen
+    def output_password(self):  # ACCESS TO THE PASSWORD FROM LOGIN SCREEN
         print(self.inputStringPassword.text)
 
-    def username_and_password_check(self, username, password):  # if statement to handle good and bad login attempts
+    def username_and_password_check(self, username, password):  # IF STATEMENT TO HANDLE GOOD/BAD LOGIN ATTEMPTS
         if username == " " and password == " ":
             self.manager.current = 'menu'
             self.clear_details()
@@ -106,6 +106,46 @@ class ViewBlockchainPage(Screen):
         self.outputStringLicenceNumber.text = self.test_licenceNumber
         self.outputStringTransactionNumber.text = self.test_transactionNumber
         self.outputStringEmployeeID.text = self.get_chain()
+
+    def next_block(self):
+        print("NEXT BLOCK SHOWS")
+
+    def previous_block(self):
+        print("PREVIOUS BLOCK SHOWS")
+
+    def user_search_input(self, searchString):
+        print(searchString)
+
+    def selected_search_field_block_id(self, state):
+        if state:
+            print("BLOCK ID")
+
+    def selected_search_field_licence_no(self, state):
+        if state:
+            print("LICENCE NO")
+
+    def selected_search_field_transaction_no(self, state):
+        if state:
+            print("TRANSACTION NO")
+
+    def selected_search_field_serial_no(self, state):
+        if state:
+            print("SERIAL NO")
+
+    def selected_search_field_firearm_model(self, state):
+        if state:
+            print("FIREARM MODEL")
+
+    def selected_search_field_store_id(self, state):
+        if state:
+            print("STORE ID")
+
+    def selected_search_field_employee_id(self, state):
+        if state:
+            print("EMPLOYEE ID")
+
+
+
 
 
 class Manager(ScreenManager):
