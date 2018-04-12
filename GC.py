@@ -21,9 +21,10 @@ class Blockchain:
 
     def new_block(self, previous_hash=None):
         # Creates a new block to be added to the blockchain
+        dt = str(datetime.datetime.now())
         block = {
             'index': len(self.chain)+1,
-            'timestamp': datetime.datetime.now(),
+            'timestamp': dt,
             'data': self.data,
             'previous_hash': previous_hash or self.hash(self.chain[-1]),
         }
@@ -46,6 +47,7 @@ class Blockchain:
         block_string = json.dumps(block, sort_keys=True).encode()
         return hasher.sha256(block_string).hexdigest()
 
+    @property
     def last_block(self):
         # Retreives the last block in the chain
         return self.chain[-1]
@@ -105,7 +107,7 @@ def add_txion():
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(previous_hash)
 
-    return "Block {} createrd".format(block['index'])
+    return "Block {} created".format(block['index'])
 
 
 @app.route('/new', methods=['POST'])
@@ -114,8 +116,7 @@ def new():
 
     index = blockchain.transaction(values['first_name'], values['surname'], values['serial_no'])
 
-    message = {'message': 'New transaction successfully added. It will be added to block {index}'}
-    return jsonify(message),
+    return 'Transaction created and will be added to block {}.'.format(index)
 
 
 @app.route('/chain', methods=['GET'])
@@ -130,4 +131,4 @@ def full_chain():
 blockchain = Blockchain()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
