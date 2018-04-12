@@ -6,6 +6,7 @@ from uuid import uuid4
 from flask import Flask, jsonify, request
 from urllib.parse import urlparse
 import pickle
+import os.path
 
 
 class Blockchain:
@@ -86,6 +87,11 @@ def save_blockchain(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
 
+def load_blockchain(filename):
+    with open(filename, 'rb') as input:
+        blockchain = pickle.load(input)
+    return blockchain
+
 '''TODO: add a consensus algorithm'''
 # def new_chains():
 #     # Retrieves Blockchains from the other registered nodes
@@ -122,7 +128,7 @@ def add_txion():
     last_block = blockchain.last_block
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(previous_hash)
-    save_blockchain(blockchain, 'C:\\Users\\Chris\\Documents\\GitHub\\Group\\blockchain.pkl')
+    save_blockchain(blockchain, file_path)
 
     return "Block {} added to blockchain".format(block['index'])
 
@@ -174,8 +180,17 @@ def consensus():
         }
     return jsonify(resp)
 
-# Instantiate the blockchain
-blockchain = Blockchain()
+# Get the users file path to their documents folder
+file_path = os.path.expanduser('~/Documents/blockchain.pkl')
+
+# Check if the blockchain has been stored. If so, use it as the blockchain
+# Else instantiate a new one
+if os.path.isfile(file_path):
+    blockchain = load_blockchain(file_path)
+    print("Blockchain already existed")
+else:
+    blockchain = Blockchain()
+    print("New blockchain created")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
