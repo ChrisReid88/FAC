@@ -53,12 +53,14 @@ class Blockchain:
         return self.chain[-1]
 
     def consensus(self):
+        # Consensus algorithm. compares length of our  chain with all other nodes
+        # in the sets chains. Replaces ours with the longest chain.
         nodes = self.nodes
         our_chain = len(self.chain)
         new_chain = []
 
         for node in nodes:
-            other_chain = requests.get('https://{}'.format(node))
+            other_chain = requests.get('http://{}/chain'.format(node))
 
             if other_chain.status_code == 200:
                 size = other_chain.json()['length']
@@ -69,6 +71,13 @@ class Blockchain:
                     new_chain = chain
         if new_chain:
             self.chain = new_chain
+            return True
+        return False
+
+    def add_node(self, addr):
+        # Add the netloc(address and port) to the set.
+        url = urlparse(addr)
+        self.nodes.add(url.netloc)
 
 
 '''TODO: add a consensus algorithm'''
@@ -103,6 +112,7 @@ app = Flask(__name__)
 
 @app.route('/add', methods=['GET'])
 def add_txion():
+    # Add new blocks to the blockchain.
     last_block = blockchain.last_block
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(previous_hash)
@@ -112,8 +122,8 @@ def add_txion():
 
 @app.route('/new', methods=['POST'])
 def new():
+    # Create new data that will be added to the blocks/
     values = request.get_json()
-
     index = blockchain.transaction(values['first_name'], values['surname'], values['serial_no'])
 
     return 'Transaction created and will be added to block {}.'.format(index)
@@ -121,14 +131,44 @@ def new():
 
 @app.route('/chain', methods=['GET'])
 def full_chain():
+    # Return the full blockchain
     chain = {
         'chain': blockchain.chain,
         'length': len(blockchain.chain)
     }
     return jsonify(chain)
 
+@app.route('/node/new', methods=['POST'])
+def new_node():
+    # Register new nodes in our set/network.
+    req = request.get_json()
+    nodes = req.get('nodes')
+    for node in nodes:
+        blockchain.add_node(node)
 
+    resp = {
+        'message': "Nodes added",
+        'nodes': list(blockchain.nodes),
+    }
+    return jsonify(resp)
+
+@app.route('/node/consensus',methods=['GET'])
+def consensus():
+    # Use the consensus algorithm to ensure we have the longest chain.
+    updated = blockchain.consensus()
+    print(jsonify(blockchain))
+    if not updated:
+        resp = {
+            'message': 'Our chain is up to date.'
+        }
+    else:
+        resp = {
+            'message': 'Chain updated'
+        }
+    return jsonify(resp)
+
+# Instantiate the blockchain
 blockchain = Blockchain()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
