@@ -114,7 +114,8 @@ class ViewBlockchainPage(Screen):
         print("PREVIOUS BLOCK SHOWS")
 
     def user_search_input(self, searchString):
-        print(searchString)
+        if searchString != "":
+            print("YES")
 
     def selected_search_field_block_id(self, state):
         if state:
