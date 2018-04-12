@@ -5,6 +5,7 @@ import datetime
 from uuid import uuid4
 from flask import Flask, jsonify, request
 from urllib.parse import urlparse
+import pickle
 
 
 class Blockchain:
@@ -80,6 +81,11 @@ class Blockchain:
         self.nodes.add(url.netloc)
 
 
+def save_blockchain(obj, filename):
+    # Stores the blockchain object using pickle
+    with open(filename, 'wb') as output:
+        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
 '''TODO: add a consensus algorithm'''
 # def new_chains():
 #     # Retrieves Blockchains from the other registered nodes
@@ -116,8 +122,9 @@ def add_txion():
     last_block = blockchain.last_block
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(previous_hash)
+    save_blockchain(blockchain, 'C:\\Users\\Chris\\Documents\\GitHub\\Group\\blockchain.pkl')
 
-    return "Block {} created".format(block['index'])
+    return "Block {} added to blockchain".format(block['index'])
 
 
 @app.route('/new', methods=['POST'])
