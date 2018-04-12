@@ -88,6 +88,107 @@
 
 
 
+<SearchPopup@Popup>:
+    auto_dismiss: True
+    size_hint: 0.8, 0.8
+    title: "Select which field to search"
+
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            Label:
+                text: "Block ID"
+
+            CheckBox:
+                group: "search"
+                on_active: app.root.screen_four.selected_search_field_block_id(self.active)
+
+
+        BoxLayout:
+            Label:
+                text: "Licence No"
+
+            CheckBox:
+                group: "search"
+                on_active: app.root.screen_four.selected_search_field_licence_no(self.active)
+
+
+        BoxLayout:
+            Label:
+                text: "Transaction No"
+
+            CheckBox:
+                group: "search"
+                on_active: app.root.screen_four.selected_search_field_transaction_no(self.active)
+
+
+        BoxLayout:
+            Label:
+                text: "Serial No"
+
+            CheckBox:
+                group: "search"
+                on_active: app.root.screen_four.selected_search_field_serial_no(self.active)
+
+
+        BoxLayout:
+            Label:
+                text: "Firearm Model"
+
+            CheckBox:
+                group: "search"
+                on_active: app.root.screen_four.selected_search_field_firearm_model(self.active)
+
+
+        BoxLayout:
+            Label:
+                text: "Store ID"
+
+            CheckBox:
+                group: "search"
+                on_active: app.root.screen_four.selected_search_field_store_id(self.active)
+
+
+        BoxLayout:
+            Label:
+                text: "Employee ID"
+
+            CheckBox:
+                group: "search"
+                on_active: app.root.screen_four.selected_search_field_employee_id(self.active)
+
+        BoxLayout:
+            Button:
+
+        BoxLayout:
+            Label:
+                size_hint_x: 50
+                text: "Search:"
+            TextInput:
+                size_hint_x: 50
+                id: userInputSearch
+                hint_text: "Enter the value you wish to search for"
+                hint_text_color: 0.043, 1, 0.019,  1                                # GREEN
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Button:
+                text: "OK"
+                on_press:
+                    app.root.screen_four.user_search_input(userInputSearch.text)
+                    root.dismiss()
+
+
+
+
+
+
+
+
+
 <LoginPage>
     inputStringUsername: username
     inputStringPassword: password
@@ -676,9 +777,25 @@
                         size_hint_x: 50
 
                     Button:
-                        size_hint_x: 45
-                        text: "Output"
-                        on_press: root.output_to_label()
+                        size_hint_x: 10
+                        text: "<<<"
+                        on_press: root.previous_block()
+
+                    Label:
+                        size_hint_x: 5
+
+                    Button:
+                        size_hint_x: 15
+                        text: "Search"
+                        on_press: Factory.SearchPopup().open()
+
+                    Label:
+                        size_hint_x: 5
+
+                    Button:
+                        size_hint_x: 10
+                        text: ">>>"
+                        on_press: root.next_block()
 
                     Label:
                         size_hint_x: 5
