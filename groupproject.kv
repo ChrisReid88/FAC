@@ -15,28 +15,33 @@
     multiline: False
     background_color: 1, 0.470, 0.019, 1        # ORANGE
 
-
 <VerificationPopup@Popup>:
     auto_dismiss: True
-    size_hint: 0.4, 0.25
+    size_hint: 0.45, 0.3
     title: "Customer Verification"
 
     BoxLayout:
         orientation: "vertical"
 
         BoxLayout:
+            size_hint_y: 5
+            Label:
+
+        BoxLayout:
+            size_hint_y: 30
 
             Label:
-                text: "Username"
+                text: "Username:"
 
             TextInput:
                 id: username
                 write_tab: False
 
         BoxLayout:
+            size_hint_y: 30
 
             Label:
-                text: "Password"
+                text: "Password:"
 
             TextInput:
                 id: password
@@ -44,7 +49,12 @@
                 password: True
 
         BoxLayout:
+            size_hint_y: 5
+            Label:
+
+        BoxLayout:
             orientation: "horizontal"
+            size_hint_y: 30
 
             Button:
                 text: "Accept"
@@ -52,8 +62,34 @@
                     app.root.screen_three.output_form_details(username.text, password.text)
                     root.dismiss()
 
+<ExitAppPopup@Popup>:
+    auto_dismiss: True
+    size_hint: 0.45, 0.3
+    title: "Exit Application"
 
+    BoxLayout:
+        orientation: "vertical"
 
+        BoxLayout:
+            size_hint_y: 70
+            Label:
+                text: "Are you sure you want to\nexit the application?"
+
+        BoxLayout:
+            size_hint_y: 30
+
+            Button:
+                text: "Yes"
+                size_hint_x: 49
+                on_press: app.stop()
+
+            Label:
+                size_hint_x: 2
+
+            Button:
+                text: "No"
+                size_hint_x: 49
+                on_press: root.dismiss()
 
 <BadDetailsPopup@Popup>:
     auto_dismiss: True
@@ -62,42 +98,44 @@
 
     BoxLayout:
         orientation: "vertical"
+
         Label:
             text: "You have entered invalid details.\nPlease try again."
-            size_hint_y: 80
+            size_hint_y: 70
+
         Button:
             text: "OK"
             size_hint_y: 30
             on_press: root.dismiss()
 
-
 <NotVerifiedPopup@Popup>:
     auto_dismiss: True
-    size_hint: 0.55, 0.3
+    size_hint: 0.45, 0.3
     title: "Customer Verification Needed"
 
     BoxLayout:
         orientation: "vertical"
+
         Label:
-            text: "The customer has not verified this transaction.\nPlease try again."
-            size_hint_y: 80
+            text: "The customer has not verified this\ntransaction, please try again."
+            size_hint_y: 70
+
         Button:
             text: "OK"
             size_hint_y: 30
             on_press: root.dismiss()
 
-
-
 <SearchPopup@Popup>:
     auto_dismiss: True
-    size_hint: 0.8, 0.8
+    size_hint: 0.4, 0.5
     title: "Select which field to search"
-
 
     BoxLayout:
         orientation: "vertical"
 
         BoxLayout:
+            size_hint_y: 10
+
             Label:
                 text: "Block ID"
 
@@ -105,8 +143,9 @@
                 group: "search"
                 on_active: app.root.screen_four.selected_search_field_block_id(self.active)
 
-
         BoxLayout:
+            size_hint_y: 10
+
             Label:
                 text: "Licence No"
 
@@ -114,8 +153,9 @@
                 group: "search"
                 on_active: app.root.screen_four.selected_search_field_licence_no(self.active)
 
-
         BoxLayout:
+            size_hint_y: 10
+
             Label:
                 text: "Transaction No"
 
@@ -123,8 +163,9 @@
                 group: "search"
                 on_active: app.root.screen_four.selected_search_field_transaction_no(self.active)
 
-
         BoxLayout:
+            size_hint_y: 10
+
             Label:
                 text: "Serial No"
 
@@ -132,8 +173,9 @@
                 group: "search"
                 on_active: app.root.screen_four.selected_search_field_serial_no(self.active)
 
-
         BoxLayout:
+            size_hint_y: 10
+
             Label:
                 text: "Firearm Model"
 
@@ -141,8 +183,9 @@
                 group: "search"
                 on_active: app.root.screen_four.selected_search_field_firearm_model(self.active)
 
-
         BoxLayout:
+            size_hint_y: 10
+
             Label:
                 text: "Store ID"
 
@@ -150,8 +193,9 @@
                 group: "search"
                 on_active: app.root.screen_four.selected_search_field_store_id(self.active)
 
-
         BoxLayout:
+            size_hint_y: 10
+
             Label:
                 text: "Employee ID"
 
@@ -160,34 +204,25 @@
                 on_active: app.root.screen_four.selected_search_field_employee_id(self.active)
 
         BoxLayout:
-            Button:
+            size_hint_y: 15
 
-        BoxLayout:
             Label:
                 size_hint_x: 50
                 text: "Search:"
+
             TextInput:
                 size_hint_x: 50
                 id: userInputSearch
-                hint_text: "Enter the value you wish to search for"
-                hint_text_color: 0.043, 1, 0.019,  1                                # GREEN
 
         BoxLayout:
             orientation: "horizontal"
+            size_hint_y: 15
 
             Button:
                 text: "OK"
                 on_press:
                     app.root.screen_four.user_search_input(userInputSearch.text)
                     root.dismiss()
-
-
-
-
-
-
-
-
 
 <LoginPage>
     inputStringUsername: username
@@ -208,6 +243,7 @@
 
                 BoxLayout:
                     size_hint_y: 25
+
                     Label:
                         text: "Group 63"
                         underline: True
@@ -220,12 +256,15 @@
 
                     BoxLayout:
                         size_hint_y: 30
+
                         Label:
                             text: "Username:   "
                             size_hint_x: 35
+
                         TextInput:
                             id: username
                             size_hint_x: 60
+
                         Label:
                             size_hint_x: 5
 
@@ -235,13 +274,16 @@
 
                     BoxLayout:
                         size_hint_y: 30
+
                         Label:
                             text: "Password:   "
                             size_hint_x: 35
+
                         TextInput:
                             id: password
                             size_hint_x: 60
                             password: True
+
                         Label:
                             size_hint_x: 5
 
@@ -250,23 +292,23 @@
 
                     BoxLayout:
                         size_hint_y: 30
+
                         Label:
                             size_hint_x: 57
+
                         Button:
+                            size_hint_x: 42
                             text: "Login"
                             on_press:
                                 root.output_username()
                                 root.output_password()
                                 root.username_and_password_check(username.text, password.text)
 
-                            # on_press: root.manager.current = 'menu'
-                            size_hint_x: 42
                         Label:
                             size_hint_x: 5
 
                 BoxLayout:
                     size_hint_y: 60
-
 
         BoxLayout:
             size_hint_x: 15
@@ -280,21 +322,20 @@
 
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
-                    on_press: app.stop()
+                    on_press: Factory.ExitAppPopup().open()
 
                 Label:
                     size_hint_x: 10
 
             BoxLayout:
                 size_hint_y: 2
-
-
 
 <MainMenuPage>
     BoxLayout:
@@ -310,6 +351,7 @@
 
             BoxLayout:
                 size_hint_y: 25
+
                 Label:
                     text: "Main Menu"
                     underline: True
@@ -322,12 +364,15 @@
 
                 BoxLayout:
                     size_hint_y: 45
+
                     Label:
                         size_hint_x: 17
+
                     Button:
                         text: "Add a Transaction"
                         size_hint_x: 66
                         on_press: root.manager.current = 'add'
+
                     Label:
                         size_hint_x: 17
 
@@ -336,22 +381,23 @@
 
                 BoxLayout:
                     size_hint_y: 45
+
                     Label:
                         size_hint_x: 17
+
                     Button:
                         text: "View the Blockchain"
                         size_hint_x: 66
                         on_press: root.manager.current = 'view'
+
                     Label:
                         size_hint_x: 17
-
 
             BoxLayout:
                 size_hint_y: 65
 
         BoxLayout:
             size_hint_x: 15
-
 
         BoxLayout:
             size_hint_x: 18
@@ -360,9 +406,9 @@
             BoxLayout:
                 size_hint_y: 88
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
@@ -374,32 +420,25 @@
                 Label:
                     size_hint_x: 10
 
-
             BoxLayout:
                 size_hint_y: 1
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
-                    on_press: app.stop()
+                    on_press: Factory.ExitAppPopup().open()
 
                 Label:
                     size_hint_x: 10
 
             BoxLayout:
                 size_hint_y: 2
-
-
-
-
-
-
 
 <AddFirearmPage>
     inputStringLicenceNumber: licenceNo
@@ -408,7 +447,6 @@
     inputStringSerialNumber: serialNumber
     inputStringStoreID: storeID
     inputStringEmployeeID: employeeID
-
 
     BoxLayout:
         orientation: "horizontal"
@@ -423,12 +461,12 @@
 
             BoxLayout:
                 size_hint_y: 20
+
                 Label:
                     text: "Transaction Details"
                     underline: True
                     bold: True
                     font_size: "60dp"
-
 
             BoxLayout:
                 orientation: "horizontal"
@@ -437,91 +475,96 @@
                 BoxLayout:
                     size_hint_x: 5
 
-
                 BoxLayout:
                     orientation: "vertical"
                     size_hint_x: 90
 
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Licence No:"
                             size_hint_x: 50
+
                         TextInput:
                             id: licenceNo
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Transaction No:"
                             size_hint_x: 50
+
                         TextInput:
                             id: transactionNo
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
-                            text: "Serial Number:"
+                            text: "Serial No:"
                             size_hint_x: 50
+
                         TextInput:
                             id: serialNumber
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Firearm Model:"
                             size_hint_x: 50
+
                         TextInput:
                             id: firearmModel
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Store ID:"
                             size_hint_x: 50
+
                         TextInput:
                             id: storeID
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
-
 
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Employee ID:"
                             size_hint_x: 50
+
                         TextInput:
                             id: employeeID
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
                 BoxLayout:
                     size_hint_x: 5
-
-
-
 
             BoxLayout:
                 size_hint_y: 40
@@ -530,9 +573,9 @@
                 BoxLayout:
                     size_hint_y: 5
 
-
                 BoxLayout:
                     size_hint_y: 15
+
                     Label:
                         size_hint_x: 50
 
@@ -547,9 +590,9 @@
                 BoxLayout:
                     size_hint_y: 2.5
 
-
                 BoxLayout:
                     size_hint_y: 15
+
                     Label:
                         size_hint_x: 50
 
@@ -564,9 +607,6 @@
                 BoxLayout:
                     size_hint_y: 59.5
 
-
-
-
         BoxLayout:
             size_hint_x: 18
             orientation: "vertical"
@@ -574,9 +614,9 @@
             BoxLayout:
                 size_hint_y: 82.5
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
@@ -588,13 +628,12 @@
                 Label:
                     size_hint_x: 10
 
-
             BoxLayout:
                 size_hint_y: 1
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
@@ -606,28 +645,25 @@
                 Label:
                     size_hint_x: 10
 
-
             BoxLayout:
                 size_hint_y: 1
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
-                    on_press: app.stop()
+                    on_press: Factory.ExitAppPopup().open()
 
                 Label:
                     size_hint_x: 10
 
             BoxLayout:
                 size_hint_y: 2
-
-
 
 <ViewBlockchainPage>
     outputStringBlockID: blockID
@@ -638,13 +674,11 @@
     outputStringStoreID: storeID
     outputStringEmployeeID: employeeID
 
-
     BoxLayout:
         orientation: "horizontal"
 
         BoxLayout:
             size_hint_x: 18
-
 
         BoxLayout:
             orientation: "vertical"
@@ -652,127 +686,149 @@
 
             BoxLayout:
                 size_hint_y: 20
+
                 Label:
-                    text: "Transaction Details"
+                    text: "Blockchain Details"
                     underline: True
                     bold: True
                     font_size: "60dp"
 
-
             BoxLayout:
                 orientation: "horizontal"
-                size_hint_y: 40
+                size_hint_y: 50
 
                 BoxLayout:
                     size_hint_x: 5
-
 
                 BoxLayout:
                     orientation: "vertical"
                     size_hint_x: 90
 
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Block ID:"
                             size_hint_x: 50
+
                         TextInput:
                             id: blockID
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
+                    BoxLayout:
+                        size_hint_y: 8.5
+
+                        Label:
+                            text: "Date:"
+                            size_hint_x: 50
+
+                        TextInput:
+                            id: date
+                            size_hint_x: 50
+
+                    BoxLayout:
+                        size_hint_y: 1
 
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Licence No:"
                             size_hint_x: 50
+
                         TextInput:
                             id: licenceNo
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Transaction No:"
                             size_hint_x: 50
+
                         TextInput:
                             id: transactionNo
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
-                            text: "Serial Number:"
+                            text: "Serial No:"
                             size_hint_x: 50
+
                         TextInput:
                             id: serialNumber
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Firearm Model:"
                             size_hint_x: 50
+
                         TextInput:
                             id: firearmModel
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
 
-
-
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Store ID:"
                             size_hint_x: 50
+
                         TextInput:
                             id: storeID
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
-
 
                     BoxLayout:
                         size_hint_y: 8.5
+
                         Label:
                             text: "Employee ID:"
                             size_hint_x: 50
+
                         TextInput:
                             id: employeeID
                             size_hint_x: 50
+
                     BoxLayout:
                         size_hint_y: 1
-
 
                 BoxLayout:
                     size_hint_x: 5
 
-
-
-
             BoxLayout:
-                size_hint_y: 40
+                size_hint_y: 30
                 orientation: "vertical"
 
                 BoxLayout:
                     size_hint_y: 5
 
                 BoxLayout:
-                    size_hint_y: 15
+                    size_hint_y: 20
+
                     Label:
                         size_hint_x: 50
 
@@ -801,10 +857,7 @@
                         size_hint_x: 5
 
                 BoxLayout:
-                    size_hint_y: 80
-
-
-
+                    size_hint_y: 75
 
         BoxLayout:
             size_hint_x: 18
@@ -813,9 +866,9 @@
             BoxLayout:
                 size_hint_y: 82.5
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
@@ -827,13 +880,12 @@
                 Label:
                     size_hint_x: 10
 
-
             BoxLayout:
                 size_hint_y: 1
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
@@ -845,30 +897,25 @@
                 Label:
                     size_hint_x: 10
 
-
             BoxLayout:
                 size_hint_y: 1
 
-
             BoxLayout:
                 size_hint_y: 4.5
+
                 Label:
                     size_hint_x: 10
 
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
-                    on_press: app.stop()
+                    on_press: Factory.ExitAppPopup().open()
 
                 Label:
                     size_hint_x: 10
 
             BoxLayout:
                 size_hint_y: 2
-
-
-
-
 
 <Manager>:
     id: screen_manager
@@ -883,18 +930,15 @@
         name: 'login'
         manager: screen_manager
 
-
     MainMenuPage:
         id: menuPage
         name: 'menu'
         manager: screen_manager
 
-
     AddFirearmPage:
         id: addFirearmPage
         name: 'add'
         manager: screen_manager
-
 
     ViewBlockchainPage:
         id: viewBlockchainPage
