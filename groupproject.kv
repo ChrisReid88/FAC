@@ -18,7 +18,7 @@
 
 <VerificationPopup@Popup>:
     auto_dismiss: True
-    size_hint: 0.4, 0.25
+    size_hint: 0.55, 0.3 # 0.4, 0.25
     title: "Customer Verification"
 
     BoxLayout:
@@ -27,7 +27,7 @@
         BoxLayout:
 
             Label:
-                text: "Username"
+                text: "Username:"
 
             TextInput:
                 id: username
@@ -36,7 +36,7 @@
         BoxLayout:
 
             Label:
-                text: "Password"
+                text: "Password:"
 
             TextInput:
                 id: password
@@ -57,7 +57,7 @@
 
 <BadDetailsPopup@Popup>:
     auto_dismiss: True
-    size_hint: 0.45, 0.3
+    size_hint: 0.55, 0.3 # 0.45, 0.3
     title: "Unsuccessful Attempt"
 
     BoxLayout:
@@ -90,7 +90,7 @@
 
 <SearchPopup@Popup>:
     auto_dismiss: True
-    size_hint: 0.8, 0.8
+    size_hint: 0.4, 0.5
     title: "Select which field to search"
 
 
@@ -98,6 +98,7 @@
         orientation: "vertical"
 
         BoxLayout:
+            size_hint_y: 10
             Label:
                 text: "Block ID"
 
@@ -107,6 +108,7 @@
 
 
         BoxLayout:
+            size_hint_y: 10
             Label:
                 text: "Licence No"
 
@@ -116,6 +118,7 @@
 
 
         BoxLayout:
+            size_hint_y: 10
             Label:
                 text: "Transaction No"
 
@@ -125,6 +128,7 @@
 
 
         BoxLayout:
+            size_hint_y: 10
             Label:
                 text: "Serial No"
 
@@ -134,6 +138,7 @@
 
 
         BoxLayout:
+            size_hint_y: 10
             Label:
                 text: "Firearm Model"
 
@@ -143,6 +148,7 @@
 
 
         BoxLayout:
+            size_hint_y: 10
             Label:
                 text: "Store ID"
 
@@ -152,6 +158,7 @@
 
 
         BoxLayout:
+            size_hint_y: 10
             Label:
                 text: "Employee ID"
 
@@ -159,21 +166,19 @@
                 group: "search"
                 on_active: app.root.screen_four.selected_search_field_employee_id(self.active)
 
-        BoxLayout:
-            Button:
 
         BoxLayout:
+            size_hint_y: 15
             Label:
                 size_hint_x: 50
                 text: "Search:"
             TextInput:
                 size_hint_x: 50
                 id: userInputSearch
-                hint_text: "Enter the value you wish to search for"
-                hint_text_color: 0.043, 1, 0.019,  1                                # GREEN
 
         BoxLayout:
             orientation: "horizontal"
+            size_hint_y: 15
 
             Button:
                 text: "OK"
@@ -470,7 +475,7 @@
                     BoxLayout:
                         size_hint_y: 8.5
                         Label:
-                            text: "Serial Number:"
+                            text: "Serial No:"
                             size_hint_x: 50
                         TextInput:
                             id: serialNumber
@@ -653,7 +658,7 @@
             BoxLayout:
                 size_hint_y: 20
                 Label:
-                    text: "Transaction Details"
+                    text: "Blockchain Details"
                     underline: True
                     bold: True
                     font_size: "60dp"
@@ -661,7 +666,7 @@
 
             BoxLayout:
                 orientation: "horizontal"
-                size_hint_y: 40
+                size_hint_y: 50
 
                 BoxLayout:
                     size_hint_x: 5
@@ -679,6 +684,18 @@
                             size_hint_x: 50
                         TextInput:
                             id: blockID
+                            size_hint_x: 50
+                    BoxLayout:
+                        size_hint_y: 1
+
+
+                    BoxLayout:
+                        size_hint_y: 8.5
+                        Label:
+                            text: "Date:"
+                            size_hint_x: 50
+                        TextInput:
+                            id: date
                             size_hint_x: 50
                     BoxLayout:
                         size_hint_y: 1
@@ -711,7 +728,7 @@
                     BoxLayout:
                         size_hint_y: 8.5
                         Label:
-                            text: "Serial Number:"
+                            text: "Serial No:"
                             size_hint_x: 50
                         TextInput:
                             id: serialNumber
@@ -765,14 +782,14 @@
 
 
             BoxLayout:
-                size_hint_y: 40
+                size_hint_y: 30
                 orientation: "vertical"
 
                 BoxLayout:
                     size_hint_y: 5
 
                 BoxLayout:
-                    size_hint_y: 15
+                    size_hint_y: 20
                     Label:
                         size_hint_x: 50
 
@@ -801,7 +818,7 @@
                         size_hint_x: 5
 
                 BoxLayout:
-                    size_hint_y: 80
+                    size_hint_y: 75
 
 
 
