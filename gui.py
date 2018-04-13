@@ -146,9 +146,6 @@ class ViewBlockchainPage(Screen):
             print("EMPLOYEE ID")
 
 
-
-
-
 class Manager(ScreenManager):
     screen_one = ObjectProperty(None)  # Login Page
     screen_two = ObjectProperty(None)  # Main Menu Page
