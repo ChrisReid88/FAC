@@ -34,13 +34,16 @@ class Blockchain:
         self.chain.append(block)
         return block
 
-    def transaction(self, first_name, surname, serial_no):
+    def transaction(self, licence_no, trans_no, serial_no, firearm_model, store_id, emp_id):
         # Adds a transaction that will need to be mined/added
         # TODO: change to match the updated GUI
         self.data.append({
-            'first_name': first_name,
-            'surname': surname,
+            'licence_no': licence_no,
+            'trans_no': trans_no,
             'serial_no': serial_no,
+            'firearm_model': firearm_model,
+            'store_id': store_id,
+            'emp_id': emp_id,
         })
         return self.last_block['index']+1
 
@@ -137,7 +140,12 @@ def add_txion():
 def new():
     # Create new data that will be added to the blocks/
     values = request.get_json()
-    index = blockchain.transaction(values['first_name'], values['surname'], values['serial_no'])
+    index = blockchain.transaction(values['licence_no'],
+                                   values['trans_no'],
+                                   values['serial_no'],
+                                   values['firearm_model'],
+                                   values['store_id'],
+                                   values['emp_id'])
 
     return 'Transaction created and will be added to block {}.'.format(index)
 
