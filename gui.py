@@ -5,6 +5,7 @@ from kivy.factory import Factory
 from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition
 from kivy.properties import ObjectProperty
 from kivy.network.urlrequest import UrlRequest
+import urllib
 import json
 
 kivy.require('1.10.0')
@@ -64,6 +65,19 @@ class AddFirearmPage(Screen):
             # CALL THIS FUNCTION [ Factory.BadDetailsPopup().open() ] IF VALIDATION FAILS
 
             # FUNCTION TO ACTUALLY ADD VALUES TO THE BLOCKCHAIN NEEDS TO GO HERE
+            # TODO: validation
+            values = {"licence_no": self.inputStringLicenceNumber.text,
+                      "trans_no": self.inputStringTransactionNumber.text,
+                      "serial_no": self.inputStringSerialNumber.text,
+                      "firearm_model": self.inputStringFirearmModel.text,
+                      "store_id": self.inputStringStoreID.text,
+                      "emp_id": self.inputStringEmployeeID.text}
+            params = json.dumps(values)
+            headers = {'Content-type': 'application/json',
+                       'Accept': 'text/plain'}
+            req = UrlRequest("http://localhost:5000/new", req_body=params, req_headers=headers)
+            req.wait()
+            print(params)
             print("Added to the block")
 
             # RESETS THE BOOLEAN VALUE SO MULTIPLES CANNOT BE ADDED
@@ -83,6 +97,7 @@ class AddFirearmPage(Screen):
             pass
 
 
+
 class ViewBlockchainPage(Screen):
     outputStringBlockID: ObjectProperty()
     outputStringLicenceNumber: ObjectProperty()
@@ -92,20 +107,36 @@ class ViewBlockchainPage(Screen):
     outputStringStoreID: ObjectProperty()
     outputStringEmployeeID: ObjectProperty()
 
-    test_blockID = "123"  # TEST VALUES
-    test_licenceNumber = "00000001"  # TEST VALUES
-    test_transactionNumber = "748575"  # TEST VALUES
 
     def get_chain(self):
         req = UrlRequest("http://localhost:5000/chain")
-        req.wait(delay=0.05)
-        return str(req.result["length"])
+        req.wait(delay=0.01)
+        return req.result
+
 
     def output_to_label(self):
-        self.outputStringBlockID.text = self.test_blockID
-        self.outputStringLicenceNumber.text = self.test_licenceNumber
-        self.outputStringTransactionNumber.text = self.test_transactionNumber
-        self.outputStringEmployeeID.text = self.get_chain()
+        chain = self.get_chain()
+        # block = [item for item in chain["chain"]
+        #     if item["data"][0]["emp_id"] == "19920320"]
+        # print(block)
+        bi = 1
+        di = 0
+
+        block_id = str(chain["length"])
+        licence_no = str(chain["chain"][bi]["data"][di]["licence_no"])
+        trans_no = str(chain["chain"][bi]["data"][di]["trans_no"])
+        firearm_model = str(chain["chain"][bi]["data"][di]["firearm_model"])
+        serial_no = str(chain["chain"][bi]["data"][di]["serial_no"])
+        store_id = str(chain["chain"][bi]["data"][di]["store_id"])
+        emp_id = str(chain["chain"][bi]["data"][di]["emp_id"])
+
+        self.outputStringBlockID.text = block_id
+        self.outputStringLicenceNumber.text = licence_no
+        self.outputStringTransactionNumber.text = trans_no
+        self.outputStringFirearmModel.text = firearm_model
+        self.outputStringSerialNumber.text = serial_no
+        self.outputStringStoreID.text = store_id
+        self.outputStringEmployeeID.text = emp_id
 
     def next_block(self):
         print("NEXT BLOCK SHOWS")
@@ -115,6 +146,8 @@ class ViewBlockchainPage(Screen):
 
     def user_search_input(self, searchString):
         if searchString != "":
+            self.output_to_label()
+
             print("YES")
 
     def selected_search_field_block_id(self, state):

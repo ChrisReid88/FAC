@@ -124,18 +124,6 @@ def load_blockchain(filename):
 """ FLASK ROUTES USED TO ADD AND RETRIEVE BLOCKS"""
 app = Flask(__name__)
 
-
-@app.route('/add', methods=['GET'])
-def add_txion():
-    # Add new blocks to the blockchain.
-    last_block = blockchain.last_block
-    previous_hash = blockchain.hash(last_block)
-    block = blockchain.new_block(previous_hash)
-    save_blockchain(blockchain, file_path)
-
-    return "Block {} added to blockchain".format(block['index'])
-
-
 @app.route('/new', methods=['POST'])
 def new():
     # Create new data that will be added to the blocks/
@@ -147,7 +135,13 @@ def new():
                                    values['store_id'],
                                    values['emp_id'])
 
-    return 'Transaction created and will be added to block {}.'.format(index)
+    # Add new block to the blockchain.
+    last_block = blockchain.last_block
+    previous_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(previous_hash)
+    save_blockchain(blockchain, file_path)
+
+    return "Transaction added to Block {} which has been added to blockchain".format(block['index'])
 
 
 @app.route('/chain', methods=['GET'])
