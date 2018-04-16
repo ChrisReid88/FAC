@@ -34,13 +34,16 @@ class Blockchain:
         self.chain.append(block)
         return block
 
-    def transaction(self, first_name, surname, serial_no):
+    def transaction(self, licence_no, trans_no, serial_no, firearm_model, store_id, emp_id):
         # Adds a transaction that will need to be mined/added
         # TODO: change to match the updated GUI
         self.data.append({
-            'first_name': first_name,
-            'surname': surname,
+            'licence_no': licence_no,
+            'trans_no': trans_no,
             'serial_no': serial_no,
+            'firearm_model': firearm_model,
+            'store_id': store_id,
+            'emp_id': emp_id,
         })
         return self.last_block['index']+1
 
@@ -121,25 +124,24 @@ def load_blockchain(filename):
 """ FLASK ROUTES USED TO ADD AND RETRIEVE BLOCKS"""
 app = Flask(__name__)
 
+@app.route('/new', methods=['POST'])
+def new():
+    # Create new data that will be added to the blocks/
+    values = request.get_json()
+    index = blockchain.transaction(values['licence_no'],
+                                   values['trans_no'],
+                                   values['serial_no'],
+                                   values['firearm_model'],
+                                   values['store_id'],
+                                   values['emp_id'])
 
-@app.route('/add', methods=['GET'])
-def add_txion():
-    # Add new blocks to the blockchain.
+    # Add new block to the blockchain.
     last_block = blockchain.last_block
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(previous_hash)
     save_blockchain(blockchain, file_path)
 
-    return "Block {} added to blockchain".format(block['index'])
-
-
-@app.route('/new', methods=['POST'])
-def new():
-    # Create new data that will be added to the blocks/
-    values = request.get_json()
-    index = blockchain.transaction(values['first_name'], values['surname'], values['serial_no'])
-
-    return 'Transaction created and will be added to block {}.'.format(index)
+    return "Transaction added to Block {} which has been added to blockchain".format(block['index'])
 
 
 @app.route('/chain', methods=['GET'])
