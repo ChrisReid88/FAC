@@ -28,7 +28,7 @@ class LoginPage(Screen):
         print(self.inputStringPassword.text)
 
     def username_and_password_check(self, username, password):  # IF STATEMENT TO HANDLE GOOD/BAD LOGIN ATTEMPTS
-        if username == " " and password == " ":
+        if username == "" and password == "":
             self.manager.current = 'menu'
             self.clear_details()
         else:
@@ -107,30 +107,101 @@ class ViewBlockchainPage(Screen):
     outputStringStoreID: ObjectProperty()
     outputStringEmployeeID: ObjectProperty()
 
+    user_selection = 0
+    search_string = "te"
 
     def get_chain(self):
         req = UrlRequest("http://localhost:5000/chain")
         req.wait(delay=0.01)
         return req.result
 
+    def find_licence_no(self, licence_no):
+        chain = self.get_chain()
+        for items in chain["chain"]:
+            for item in items["data"]:
+                if item["licence_no"] == self.search_string:
+                    block = item
+        return block
 
     def output_to_label(self):
         chain = self.get_chain()
-        # block = [item for item in chain["chain"]
-        #     if item["data"][0]["emp_id"] == "19920320"]
-        # print(block)
-        bi = 1
-        di = 0
 
-        block_id = str(chain["length"])
-        licence_no = str(chain["chain"][bi]["data"][di]["licence_no"])
-        trans_no = str(chain["chain"][bi]["data"][di]["trans_no"])
-        firearm_model = str(chain["chain"][bi]["data"][di]["firearm_model"])
-        serial_no = str(chain["chain"][bi]["data"][di]["serial_no"])
-        store_id = str(chain["chain"][bi]["data"][di]["store_id"])
-        emp_id = str(chain["chain"][bi]["data"][di]["emp_id"])
+        
+        if self.user_selection == 1:
+            for items in chain["chain"]:
+                for item in items["data"]:
+                    if item["block_id"] == self.search_string:
+                        licence_no = item["licence_no"]
+                        trans_no = item["trans_no"]
+                        firearm_model = item["firearm_model"]
+                        serial_no = item["serial_no"]
+                        store_id = item["store_id"]
+                        emp_id = item["emp_id"]
+        elif self.user_selection == 2:
+            item = self.find_licence_no(self.search_string)
+            licence_no = item["licence_no"]
+            trans_no = item["trans_no"]
+            firearm_model = item["firearm_model"]
+            serial_no = item["serial_no"]
+            store_id = item["store_id"]
+            emp_id = item["emp_id"]
+        elif self.user_selection == 3:
+            for items in chain["chain"]:
+                for item in items["data"]:
+                    if item["trans_no"] == self.search_string:
+                        licence_no = item["licence_no"]
+                        trans_no = item["trans_no"]
+                        firearm_model = item["firearm_model"]
+                        serial_no = item["serial_no"]
+                        store_id = item["store_id"]
+                        emp_id = item["emp_id"]
+        elif self.user_selection == 4:
+            for items in chain["chain"]:
+                for item in items["data"]:
+                    if item["serial_no"] == self.search_string:
+                        licence_no = item["licence_no"]
+                        trans_no = item["trans_no"]
+                        firearm_model = item["firearm_model"]
+                        serial_no = item["serial_no"]
+                        store_id = item["store_id"]
+                        emp_id = item["emp_id"]
+        elif self.user_selection == 5:
+            for items in chain["chain"]:
+                for item in items["data"]:
+                    if item["firearm_model"] == self.search_string:
+                        licence_no = item["licence_no"]
+                        trans_no = item["trans_no"]
+                        firearm_model = item["firearm_model"]
+                        serial_no = item["serial_no"]
+                        store_id = item["store_id"]
+                        emp_id = item["emp_id"]
+        elif self.user_selection == 6:
+            for items in chain["chain"]:
+                for item in items["data"]:
+                    if item["store_id"] == self.search_string:
+                        licence_no = item["licence_no"]
+                        trans_no = item["trans_no"]
+                        firearm_model = item["firearm_model"]
+                        serial_no = item["serial_no"]
+                        store_id = item["store_id"]
+                        emp_id = item["emp_id"]
+        elif self.user_selection == 7:
+            for items in chain["chain"]:
+                for item in items["data"]:
+                    if item["emp_id"] == self.search_string:
+                        licence_no = item["licence_no"]
+                        trans_no = item["trans_no"]
+                        firearm_model = item["firearm_model"]
+                        serial_no = item["serial_no"]
+                        store_id = item["store_id"]
+                        emp_id = item["emp_id"]
 
-        self.outputStringBlockID.text = block_id
+
+
+        print(firearm_model)
+        print(self.user_selection)
+        print(self.search_string)
+        self.outputStringBlockID.text = "1"
         self.outputStringLicenceNumber.text = licence_no
         self.outputStringTransactionNumber.text = trans_no
         self.outputStringFirearmModel.text = firearm_model
@@ -146,37 +217,43 @@ class ViewBlockchainPage(Screen):
 
     def user_search_input(self, searchString):
         if searchString != "":
+            self.search_string = searchString
             self.output_to_label()
-
-            print("YES")
 
     def selected_search_field_block_id(self, state):
         if state:
-            print("BLOCK ID")
+            self.user_selection = 1
 
     def selected_search_field_licence_no(self, state):
         if state:
             print("LICENCE NO")
+            self.user_selection = 2
 
     def selected_search_field_transaction_no(self, state):
         if state:
             print("TRANSACTION NO")
+            self.user_selection = 3
 
     def selected_search_field_serial_no(self, state):
         if state:
             print("SERIAL NO")
+            self.user_selection = 4
 
     def selected_search_field_firearm_model(self, state):
         if state:
             print("FIREARM MODEL")
+            self.user_selection = 5
 
     def selected_search_field_store_id(self, state):
         if state:
             print("STORE ID")
+            self.user_selection = 6
 
     def selected_search_field_employee_id(self, state):
         if state:
             print("EMPLOYEE ID")
+            self.user_selection = 7
+
 
 
 class Manager(ScreenManager):
