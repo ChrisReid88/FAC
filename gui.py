@@ -113,8 +113,9 @@ class ViewBlockchainPage(Screen):
     #Factory.BlockNotFoundPopup().open()
     #####################################################################################################################
 
-    user_selection = 0
+    user_selection = "block_id"
     search_string = "te"
+
 
     def get_chain(self):
         # Returns the chain from the route
@@ -123,9 +124,13 @@ class ViewBlockchainPage(Screen):
         return req.result
 
     def output_to_label(self):
+
         chain = self.get_chain()
-        index = "Block not found"
+        # Initializing variables to store data from the blocks.
+        no_block = True
+        index = ""
         date = ""
+        # Empty block to display unless the search is successful.
         block = {
             'block_id': '',
             'licence_no': '',
@@ -135,20 +140,33 @@ class ViewBlockchainPage(Screen):
             'store_id': '',
             'emp_id': ''
         }
+
+        # Searches through all the data in the blockchain
         for items in chain["chain"]:
             for item in items["data"]:
                 if self.search_string == str(items["index"]):
+                    # If the value being searched is the index, return the block associated with the block_id.
+                    # No_block set to false to call the 'Not found' pop up box.
                     print("PASSED")
                     block = item
                     index = items["index"]
                     date = items["timestamp"]
+                    no_block = False
                 elif self.user_selection != "block_id":
                     if item[self.user_selection] == self.search_string:
+                        # If it is not block_id and the key value is found return the block with the details.
+                        # No_block set to false to call the 'Not found' pop up box.
                         index = items["index"]
                         date = items["timestamp"]
                         print(date)
                         block = item
+                        no_block = False
 
+        # Search returned nothing, display the pop up.
+        if no_block is True:
+            Factory.BlockNotFoundPopup().open()
+
+        # Fill the text boxes with the block data.
         self.outputStringBlockID.text = str(index)
         self.outputStringDate.text = str(date)
         self.outputStringLicenceNumber.text = block["licence_no"]
@@ -196,8 +214,6 @@ class ViewBlockchainPage(Screen):
     def selected_search_field_employee_id(self, state):
         if state:
             self.user_selection = "emp_id"
-
-
 
 class Manager(ScreenManager):
     screen_one = ObjectProperty(None)  # Login Page
