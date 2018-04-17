@@ -108,6 +108,11 @@ class ViewBlockchainPage(Screen):
     outputStringStoreID: ObjectProperty()
     outputStringEmployeeID: ObjectProperty()
 
+    #####################################################################################################################
+    # FUNCTION TO CALL POPUP FOR MISSING BLOCK !!!!!!!!!
+    #Factory.BlockNotFoundPopup().open()
+    #####################################################################################################################
+
     user_selection = 0
     search_string = "te"
 
@@ -170,31 +175,26 @@ class ViewBlockchainPage(Screen):
 
     def selected_search_field_licence_no(self, state):
         if state:
-            print("LICENCE NO")
             self.user_selection = "licence_no"
 
     def selected_search_field_transaction_no(self, state):
         if state:
-            print("TRANSACTION NO")
             self.user_selection = "trans_no"
 
     def selected_search_field_serial_no(self, state):
         if state:
-            print("SERIAL NO")
             self.user_selection = "serial_no"
 
     def selected_search_field_firearm_model(self, state):
         if state:
-            print("FIREARM MODEL")
             self.user_selection = "firearm_model"
 
     def selected_search_field_store_id(self, state):
         if state:
-            print("STORE ID")
             self.user_selection = "store_id"
+
     def selected_search_field_employee_id(self, state):
         if state:
-            print("EMPLOYEE ID")
             self.user_selection = "emp_id"
 
 

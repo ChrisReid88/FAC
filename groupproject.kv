@@ -3,17 +3,20 @@
 <Button>
     font_size: 20
     background_normal: ''
-    background_color: 1, 0.019, 0.823, 1        # PINK
+    background_color: 0.380, 0.380, 0.380,  1
 
 <Label>
     markup: True
     bold: True
     font_size: 20
-    color: 0.043, 1, 0.019,  1                  # GREEN
+    color: 0.380, 0.380, 0.380,  1
 
 <TextInput>
     multiline: False
-    background_color: 1, 0.470, 0.019, 1        # ORANGE
+    allow_copy: False
+    background_color: 1, 1, 1, 1
+    cursor_color: 0, 0, 0, 1
+
 
 <VerificationPopup@Popup>:
     auto_dismiss: True
@@ -47,6 +50,7 @@
                 id: password
                 write_tab: False
                 password: True
+                allow_copy: False
 
         BoxLayout:
             size_hint_y: 5
@@ -58,6 +62,7 @@
 
             Button:
                 text: "Accept"
+                color: 0, 0, 0, 1
                 on_press:
                     app.root.screen_three.output_form_details(username.text, password.text)
                     root.dismiss()
@@ -81,6 +86,7 @@
             Button:
                 text: "Yes"
                 size_hint_x: 49
+                color: 0, 0, 0, 1
                 on_press: app.stop()
 
             Label:
@@ -89,6 +95,7 @@
             Button:
                 text: "No"
                 size_hint_x: 49
+                color: 0, 0, 0, 1
                 on_press: root.dismiss()
 
 <BadDetailsPopup@Popup>:
@@ -106,6 +113,7 @@
         Button:
             text: "OK"
             size_hint_y: 30
+            color: 0, 0, 0, 1
             on_press: root.dismiss()
 
 <NotVerifiedPopup@Popup>:
@@ -123,12 +131,13 @@
         Button:
             text: "OK"
             size_hint_y: 30
+            color: 0, 0, 0, 1
             on_press: root.dismiss()
 
 <SearchPopup@Popup>:
     auto_dismiss: True
     size_hint: 0.4, 0.5
-    title: "Select which field to search"
+    title: "Select Which Field to Search"
 
     BoxLayout:
         orientation: "vertical"
@@ -220,9 +229,28 @@
 
             Button:
                 text: "OK"
+                color: 0, 0, 0, 1
                 on_press:
                     app.root.screen_four.user_search_input(userInputSearch.text)
                     root.dismiss()
+
+<BlockNotFoundPopup@Popup>:
+    auto_dismiss: True
+    size_hint: 0.45, 0.3
+    title: "Block Not Found"
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Sorry, we were unable to find that.\nPlease try again."
+            size_hint_y: 70
+
+        Button:
+            text: "OK"
+            size_hint_y: 30
+            color: 0, 0, 0, 1
+            on_press: root.dismiss()
 
 <LoginPage>
     inputStringUsername: username
@@ -283,6 +311,7 @@
                             id: password
                             size_hint_x: 60
                             password: True
+                            allow_copy: False
 
                         Label:
                             size_hint_x: 5
@@ -299,6 +328,7 @@
                         Button:
                             size_hint_x: 42
                             text: "Login"
+                            color: 0, 0, 0, 1
                             on_press:
                                 root.output_username()
                                 root.output_password()
@@ -329,6 +359,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
+                    color: 0, 0, 0, 1
                     on_press: Factory.ExitAppPopup().open()
 
                 Label:
@@ -371,6 +402,7 @@
                     Button:
                         text: "Add a Transaction"
                         size_hint_x: 66
+                        color: 0, 0, 0, 1
                         on_press: root.manager.current = 'add'
 
                     Label:
@@ -388,6 +420,7 @@
                     Button:
                         text: "View the Blockchain"
                         size_hint_x: 66
+                        color: 0, 0, 0, 1
                         on_press: root.manager.current = 'view'
 
                     Label:
@@ -415,6 +448,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Log Out"
+                    color: 0, 0, 0, 1
                     on_press: root.manager.current = 'login'
 
                 Label:
@@ -432,6 +466,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
+                    color: 0, 0, 0, 1
                     on_press: Factory.ExitAppPopup().open()
 
                 Label:
@@ -582,6 +617,7 @@
                     Button:
                         size_hint_x: 45
                         text: "Customer Verification"
+                        color: 0, 0, 0, 1
                         on_press: Factory.VerificationPopup().open()
 
                     Label:
@@ -599,6 +635,7 @@
                     Button:
                         size_hint_x: 45
                         text: "Add to the blockchain"
+                        color: 0, 0, 0, 1
                         on_press: root.add_to_the_blockchain()
 
                     Label:
@@ -623,6 +660,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Back"
+                    color: 0, 0, 0, 1
                     on_press: root.manager.current = 'menu'
 
                 Label:
@@ -640,6 +678,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Log Out"
+                    color: 0, 0, 0, 1
                     on_press: root.manager.current = 'login'
 
                 Label:
@@ -657,6 +696,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
+                    color: 0, 0, 0, 1
                     on_press: Factory.ExitAppPopup().open()
 
                 Label:
@@ -715,6 +755,7 @@
                         TextInput:
                             id: blockID
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -729,6 +770,7 @@
                         TextInput:
                             id: date
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -743,6 +785,7 @@
                         TextInput:
                             id: licenceNo
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -757,6 +800,7 @@
                         TextInput:
                             id: transactionNo
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -771,6 +815,7 @@
                         TextInput:
                             id: serialNumber
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -785,6 +830,7 @@
                         TextInput:
                             id: firearmModel
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -799,6 +845,7 @@
                         TextInput:
                             id: storeID
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -813,6 +860,7 @@
                         TextInput:
                             id: employeeID
                             size_hint_x: 50
+                            readonly: True
 
                     BoxLayout:
                         size_hint_y: 1
@@ -836,6 +884,7 @@
                     Button:
                         size_hint_x: 10
                         text: "<<<"
+                        color: 0, 0, 0, 1
                         on_press: root.previous_block()
 
                     Label:
@@ -844,6 +893,7 @@
                     Button:
                         size_hint_x: 15
                         text: "Search"
+                        color: 0, 0, 0, 1
                         on_press: Factory.SearchPopup().open()
 
                     Label:
@@ -852,6 +902,7 @@
                     Button:
                         size_hint_x: 10
                         text: ">>>"
+                        color: 0, 0, 0, 1
                         on_press: root.next_block()
 
                     Label:
@@ -876,6 +927,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Back"
+                    color: 0, 0, 0, 1
                     on_press: root.manager.current = 'menu'
 
                 Label:
@@ -893,6 +945,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Log Out"
+                    color: 0, 0, 0, 1
                     on_press: root.manager.current = 'login'
 
                 Label:
@@ -910,6 +963,7 @@
                 Button:
                     size_hint_x: 80
                     text: "Exit App"
+                    color: 0, 0, 0, 1
                     on_press: Factory.ExitAppPopup().open()
 
                 Label:
