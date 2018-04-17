@@ -135,9 +135,10 @@ def new():
                                    values['store_id'],
                                    values['emp_id'])
 
-    # Add new block to the blockchain.
+    # Find the last block in the chain and get the it's hash.
     last_block = blockchain.last_block
     previous_hash = blockchain.hash(last_block)
+    # Create a new block and save the file.
     block = blockchain.new_block(previous_hash)
     save_blockchain(blockchain, file_path)
 
